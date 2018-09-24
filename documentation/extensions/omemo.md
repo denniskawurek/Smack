@@ -129,7 +129,7 @@ in the order as presented below. In this example we will use components from the
    ```
 
    The `setup()` method registers the service as a singleton. You can later access the instance
-   by calling `SignalOmemoService.getInstace()`. The service can only be registered once.
+   by calling `SignalOmemoService.getInstance()`. The service can only be registered once.
    Subsequent calls will throw an `IllegalStateException`.
 
 2. Set an OmemoStore
@@ -139,7 +139,7 @@ in the order as presented below. In this example we will use components from the
    `SignalCachingOmemoStore` for better performance.
 
    ```
-   SignalOmemoService service = SignalOmemoService.getInstace();
+   SignalOmemoService service = (SignalFileBasedOmemoStore) SignalOmemoService.getInstance();
    service.setOmemoStoreBackend(new SignalCachingOmemoStore(new SignalFileBasedOmemoStore(new File("/path/to/store"))));
    ```
 
@@ -269,7 +269,7 @@ To send the message, it has to be wrapped in a `Message` object. That can conven
 
 ```
 Message message = encrypted.asMessage(contactsJid);
-connection.sendStanza(message):
+connection.sendStanza(message);
 ```
 
 This will add a [Message Processing Hint](https://xmpp.org/extensions/xep-0334.html) for MAM,
